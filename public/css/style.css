@@ -1,0 +1,28 @@
+* {
+    font-family: 'Nunito', sans-serif;
+}
+
+main > .container {
+    margin-top: 20px;
+}
+
+.category {
+    height: 100px;
+}
+
+#home-container {
+    position: relative;
+    height: 50vh;
+    width: 100vw;
+}
+
+#main-search {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.display-details .form-group {
+    border-bottom: 1px solid #d5d5d5;
+}
