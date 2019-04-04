@@ -81,10 +81,13 @@ class UserController extends Controller
      * @param  \App\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
+    //public function edit($id)
     {
         //
-        return view('users.edit_user', compact('user'));
+        $user = \App\user::find($id);
+        //return view('users.edit_user',compact('user','id'));
+        return view('users.edit_user', compact('user', 'id'));
     }
 
     /**
@@ -99,7 +102,9 @@ class UserController extends Controller
         //
 
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'firstname' => ['required', 'string', 'max:255'],
+            'middlename' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['nullable', 'string', 'min:6', 'confirmed'],
             'type' => ['required', 'string', 'max:6'],
@@ -107,7 +112,9 @@ class UserController extends Controller
 
 
 
-        $user->name = $request->name;
+        $user->firstname = $request->firstname;
+        $user->middlename = $request->middlename;
+        $user->lastname = $request->lastname;
         $user->email = $request->email;
         if($request->password != '')
         {
@@ -129,6 +136,16 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+
+        if($user->type == 'admin'){
+            return abort(401);
+
+        }else{
+            $user -> type == '0';
+        } 
+            $user->save();
+            return redirect('/users');
+
         /*
             DISABLE, DON'T DELETE
             - make a control structure that will abort if the name property of $user is 'Administrator'
@@ -174,19 +191,12 @@ class UserController extends Controller
 
     public function approve($id)
     {
-        /*
-            - selectively query the User model using the find() method with the passed $id as its argument. Save the result as a variable named $user
-                - $user = ?::?(?);
 
-            - set the status property of $user to be equal to 1
-                - $user->? = '?';
-
-            - use the save() method on $user
-                - $user->?();
-
-            - redirect to  '/users'
-                - return ?('?');
-        */
+        $user = user::find($id); 
+        $user -> status = '1';
+        $user -> save();
+        return redirect('/users');
+       
     }
 
 }

@@ -16,6 +16,16 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::get('logout', 'Auth\LoginController@logout');
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/users', 'UserController@index')->name('users');
+Route::post('/users/{id}/approve', 'UserController@approve');
+Route::post('/users/{id}/edit', 'UserController@edit');
+Route::post('/users/{id}/update', 'UserController@update');
+Route::post('/users/{id}/delete', 'UserController@destroy');
+
 /*
 	- register a route named 'home' that will use the index method of HomeController when a get request is sent to the '/home' URI
 		- Route::?('?', '?')->?('?');
