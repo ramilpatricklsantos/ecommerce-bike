@@ -110,7 +110,7 @@ class UserController extends Controller
             'type' => ['required', 'string', 'max:6'],
         ]);
 
-
+        
 
         $user->firstname = $request->firstname;
         $user->middlename = $request->middlename;
